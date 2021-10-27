@@ -179,7 +179,7 @@ public class AirDropLogick {
     }
 
     public static Inventory clone(Inventory inv){
-        Inventory inventory = Bukkit.createInventory(null, inv.getSize(), inv.getTitle());
+        Inventory inventory = Bukkit.createInventory(null, inv.getSize()/*, inv.getTitle()*/);
         for(int i = 0; i < inv.getSize(); i++){
             ItemStack stack = inv.getItem(i);
             if(stack != null && stack.getType() != Material.AIR){
