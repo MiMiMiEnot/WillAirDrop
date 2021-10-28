@@ -85,9 +85,13 @@ public class AirDrop{
                     new Replace("{NICK}", adminName));
         }
         //ItemStack stack = new ItemStack(Settings.getLootMaterial());
+        Bukkit.getConsoleSender().sendMessage("Task run later then : " + time + " (" + time*20 + " ticks)");
         Bukkit.getScheduler().runTaskLater(WillAirDrop.getPlugin(), () -> {
+            Bukkit.getConsoleSender().sendMessage("Animation start");
             AirDropLogick.doAnimation(this);
-        }, time * 20);
+            Bukkit.getConsoleSender().sendMessage("Animation end");
+        }, (long)time * 20);
+        Bukkit.getConsoleSender().sendMessage("Task run setted");
     }
 
 }

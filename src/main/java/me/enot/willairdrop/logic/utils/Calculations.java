@@ -88,6 +88,7 @@ public class Calculations {
 
     public static int generateValidY(int x, int z){
         World world = Bukkit.getWorld(Settings.getSpawnWorld());
+        if (world == null) return -1;
         /*int y = 256;
         Location location = new Location(world, x, y, z);
         do {
@@ -96,13 +97,13 @@ public class Calculations {
             Bukkit.getConsoleSender().sendMessage("Y после " + location.getBlockY());
         } while (location.getBlock().getType() == Material.AIR);
 */
-        return getValidY(world, x, z);
+        return world.getHighestBlockYAt(x, z) + 1;
     }
 
     public static int getValidY(World w, int x, int z){
         for(int i = 256; i >= 0; i--){
             Location loc = new Location(w, x, i, z);
-            if(loc.getBlock() != null && !Settings.getBlockedMaterials().contains(loc.getBlock().getType())) {
+            if(loc.getBlock() != null && loc.getBlock().getType() != Material.AIR && !Settings.getBlockedMaterials().contains(loc.getBlock().getType())) {
                 return i + 1;
             }
         }

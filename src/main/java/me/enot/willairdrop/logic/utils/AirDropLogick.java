@@ -129,7 +129,7 @@ public class AirDropLogick {
     public static void doAnimation(AirDrop drop) {
         // TODO: 16.03.2020 Создание анимации
         drop.getLocation().setY(Calculations.generateValidY(drop.getLocation().getBlockX(), drop.getLocation().getBlockZ()));
-        Location location = drop.getLocation().clone();
+        Location location = new Location(drop.getLocation().getWorld(), drop.getLocation().getX(), drop.getLocation().getY(), drop.getLocation().getZ());
         location.setX(drop.getLocation().getBlockX() + 0.5);
         location.setY(drop.getLocation().getBlockY() + 3);
         location.setZ(drop.getLocation().getBlockZ() + 0.5);
@@ -155,10 +155,10 @@ public class AirDropLogick {
                     Material material = Settings.getLootMaterial();
                     Block block = drop.getLocation().getBlock();
                     block.setType(material);
-                    Location location = drop.getLocation().clone();
-                    double x = location.getBlockX() + Settings.getHologramX();
-                    double y = location.getBlockY() + Settings.getHologramY();
-                    double z = location.getBlockZ() + Settings.getHologramZ();
+                    Location location1 = drop.getLocation().clone();
+                    double x = location1.getBlockX() + Settings.getHologramX();
+                    double y = location1.getBlockY() + Settings.getHologramY();
+                    double z = location1.getBlockZ() + Settings.getHologramZ();
                     loc.setX(x);
                     loc.setY(y);
                     loc.setZ(z);
@@ -170,6 +170,7 @@ public class AirDropLogick {
                 }
             }
         }.runTaskTimer(WillAirDrop.getPlugin(), 0, Settings.getAnimationSchedulerTicks());
+        hol.teleport(hol.getLocation().add(0, 1, 0));
         Inventory inv = drop.getLoot().getInventory();
         inventoryMap.put(drop, clone(inv));
     }
